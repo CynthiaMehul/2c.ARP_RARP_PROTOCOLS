@@ -17,38 +17,25 @@ stored.
 5. Map the IP address with its MAC address and return the MAC address to client.
 P
 ## PROGRAM - ARP
-<h2> CLIENT </h2>
-
 ```
 import socket
 s=socket.socket()
-s.bind(('localhost',8000))
+s.bind(('localhost',8880))
 s.listen(5)
 c,addr=s.accept()
-address={"165.165.80.80":"6A:08:AA:C2","165.165.79.1":"8A:BC:E3:FA"};
+address={"192.168.144.56":" AC:50:DE:1B:DE:65"};
 while True:
  ip=c.recv(1024).decode()
  try:
- c.send(address[ip].encode())
+  c.send(address[ip].encode())
  except KeyError:
- c.send("Not Found".encode())
-```
-<h2> SERVER</h2>
+  c.send("Not Found".encode())
 
 ```
-import socket
-s=socket.socket()
-s.connect(('localhost',8000))
-while True:
- ip=input("Enter logical Address : ")
- s.send(ip.encode())
- print("MAC Address",s.recv(1024).decode())
-```
-
 
 ## OUPUT - ARP
 
-![image](https://github.com/user-attachments/assets/41322e8c-7f8a-44fc-9b6a-57f41a257942)
+![image](https://github.com/user-attachments/assets/01c6aea1-d802-4d3b-a6a0-119ded13468d)
 
 
 ## PROGRAM - RARP
@@ -58,35 +45,17 @@ while True:
 ```
 import socket
 s=socket.socket()
-s.bind(('localhost',9000))
-s.listen(5)
-c,addr=s.accept()
-address={"6A:08:AA:C2":"192.168.1.100","8A:BC:E3:FA":"192.168.1.99"};
+s.connect(('localhost',8880))
 while True:
- ip=c.recv(1024).decode()
- try:
-   c.send(address[ip].encode())
- except KeyError:
-   c.send("Not Found".encode())
-```
-
-<h2> SERVER</h2>
-
-```
-import socket
-s=socket.socket()
-s.connect(('localhost',9000))
-while True:
- ip=input("Enter MAC Address : ")
+ ip=input("Enter Logical Address:")
  s.send(ip.encode())
- print("Logical Address",s.recv(1024).decode())
+ print("MAC address",s.recv(1024).decode())
 
 ```
 
 ## OUPUT -RARP
 
-![image](https://github.com/user-attachments/assets/968ddf74-b0e0-41ac-8f1a-36de53e6d6b8)
-
+![image](https://github.com/user-attachments/assets/ac769e80-b781-4b29-85fb-caba2c21320c)
 
 
 ## RESULT
